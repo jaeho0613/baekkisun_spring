@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,12 +44,29 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
-	private VisitRepository visits;
+	private final VisitRepository visits;
 
-	public OwnerController(OwnerRepository clinicService, VisitRepository visits) {
-		this.owners = clinicService;
+	private final PetRepository pets;
+
+	// 생성자를 이용한 DI
+	public OwnerController(OwnerRepository owners, VisitRepository visits, PetRepository pets) {
+		this.owners = owners;
 		this.visits = visits;
+		this.pets = pets;
 	}
+
+	//  setter를 이용한 DI
+//	@Autowired
+//	public void setOwners(OwnerRepository owners) {
+//		this.owners = owners;
+//	}
+
+// 생성자를 Q이용한 DI
+//	@Autowired
+//	public OwnerController(OwnerRepository clinicService, VisitRepository visits) {
+//		this.owners = clinicService;
+//		this.visits = visits;
+//	}
 
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
